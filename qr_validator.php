@@ -2,7 +2,7 @@
 // Retrieve the QR code data from the POST request
 $qrCode = $_POST['qrCode'];
 // Path to the CSV file
-$csvFile = 'student.csv';
+$csvFile = 'data.csv';
 // Read the CSV file
 $csvData = file_get_contents($csvFile);
 // Convert CSV data to an associative array
