@@ -18,7 +18,7 @@ if ($mysqli->connect_error) {
 }
 
 // Retrieve the QR code data from the POST request
-$qrCode = $_POST['qrCode'];
+$qr_code = $_POST['qr_code'];
 
 // Prepare the SQL query to retrieve student information based on the QR code
 $sql = "SELECT name, class, roll FROM student WHERE qr_code = ?";
@@ -27,7 +27,7 @@ $sql = "SELECT name, class, roll FROM student WHERE qr_code = ?";
 $stmt = $mysqli->prepare($sql);
 
 // Bind the QR code value to the statement
-$stmt->bind_param('s', $qrCode);
+$stmt->bind_param('s', $qr_code);
 
 // Execute the query
 $stmt->execute();
