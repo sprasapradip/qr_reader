@@ -1,66 +1,69 @@
-<?php
-// Enable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Information</title>
+  <style>
+    /*your custom CSS styles goes here */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-// Database connection configuration
-$host = 'localhost';
-$username = 'pradip';
-$password = 'Sprasa@5782';
-$database = 'utec';
+    h1, h2 {
+      text-align: center;
+    }
 
-// Create a new mysqli instance
-$mysqli = new mysqli($host, $username, $password, $database);
+    label {
+      font-weight: bold;
+    }
 
-// Check for connection errors
-if ($mysqli->connect_error) {
-    die('Database Connection Error: ' . $mysqli->connect_error);
-}
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
 
-// Retrieve the QR code data from the POST request
-$qr_code = $_POST['qr_code'];
+    .info-section {
+      margin-top: 20px;
+    }
+  </style>
+  <script>
+    const serial = new WebSocket('ws://localhost:8080');
+    serial.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      document.getElementById('name').innerHTML = data.name;
+      document.getElementById('class').innerHTML = data.class;
+      document.getElementById('roll').innerHTML = data.roll;
+      document.getElementById('status').innerHTML = data.status;
+    };
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Real-time Student Information</h1>
 
-// Prepare the SQL query to retrieve student information based on the QR code
-$sql = "SELECT name, class, roll FROM student WHERE qr_code = ?";
+    <form id="qrForm" method="post" action="qr_validator.php">
+      <div>
+        <label for="qrCode">Scan QR Code:</label>
+      </div>
+      <div>
+        <input type="text" id="qrCode" name="qrCode" autofocus>
+      </div>
+      <div>
+        <input type="submit" value="Submit">
+      </div>
+    </form>
 
-// Prepare the statement
-$stmt = $mysqli->prepare($sql);
-
-// Bind the QR code value to the statement
-$stmt->bind_param('s', $qr_code);
-
-// Execute the query
-$stmt->execute();
-
-// Fetch the result
-$result = $stmt->get_result();
-
-// Fetch the student information if the result is found
-if ($result->num_rows > 0) {
-    $studentInfo = $result->fetch_assoc();
-    $studentName = $studentInfo['name'];
-    $studentClass = $studentInfo['class'];
-    $rollNumber = $studentInfo['roll'];
-    $status = 'Valid QR Code';
-} else {
-    $studentName = 'Unknown';
-    $studentClass = 'Unknown';
-    $rollNumber = '';
-    $status = 'Invalid QR Code';
-}
-
-// Close the statement and database connection
-$stmt->close();
-$mysqli->close();
-
-// Prepare the student information as an associative array
-$studentInfo = [
-    'name' => $studentName,
-    'class' => $studentClass,
-    'roll' => $rollNumber,
-    'status' => $status
-];
-
-// Send the student information back as JSON
-echo json_encode($studentInfo);
-?>
+    <div class="info-section">
+      <h2>Student Information:</h2>
+      <div>
+        <p><strong>Name:</strong> <span id="name"></span></p>
+        <p><strong>Class:</strong> <span id="class"></span></p>
+        <p><strong>Roll Number:</strong> <span id="roll"></span></p>
+        <p><strong>Status:</strong> <span id="status"></span></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
