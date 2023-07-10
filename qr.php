@@ -1,0 +1,66 @@
+<?php
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Database connection configuration
+$host = 'localhost';
+$username = 'pradip';
+$password = 'Sprasa@5782';
+$database = 'utec';
+
+// Create a new mysqli instance
+$mysqli = new mysqli($host, $username, $password, $database);
+
+// Check for connection errors
+if ($mysqli->connect_error) {
+    die('Database Connection Error: ' . $mysqli->connect_error);
+}
+
+// Retrieve the QR code data from the POST request
+$qrCode = $_POST['qrCode'];
+
+// Prepare the SQL query to retrieve student information based on the QR code
+$sql = "SELECT name, class, roll FROM student WHERE qr_code = ?";
+
+// Prepare the statement
+$stmt = $mysqli->prepare($sql);
+
+// Bind the QR code value to the statement
+$stmt->bind_param('s', $qrCode);
+
+// Execute the query
+$stmt->execute();
+
+// Fetch the result
+$result = $stmt->get_result();
+
+// Fetch the student information if the result is found
+if ($result->num_rows > 0) {
+    $studentInfo = $result->fetch_assoc();
+    $studentName = $studentInfo['name'];
+    $studentClass = $studentInfo['class'];
+    $rollNumber = $studentInfo['roll'];
+    $status = 'Valid QR Code';
+} else {
+    $studentName = 'Unknown';
+    $studentClass = 'Unknown';
+    $rollNumber = '';
+    $status = 'Invalid QR Code';
+}
+
+// Close the statement and database connection
+$stmt->close();
+$mysqli->close();
+
+// Prepare the student information as an associative array
+$studentInfo = [
+    'name' => $studentName,
+    'class' => $studentClass,
+    'roll' => $rollNumber,
+    'status' => $status
+];
+
+// Send the student information back as JSON
+echo json_encode($studentInfo);
+?>
