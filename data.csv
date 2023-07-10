@@ -1,12 +1,14 @@
-name,roll,qr_code
-Pradip Subedi,1,QR-001
-Subash Sharma,2,QR-002
-Garima Paudel,3,QR-003
-Atithi Aryal,4,QR-004
-Narayan Bd rana,5,QR-005
-Bishal Godar,6,QR-006
-Anil Mahatto,7,QR-007
-Dipak Shah,8,QR-008
-Nisha Pokhrel,11,QR-011
-Aayushma Paudel,9,QR-009
-Anisha Silwal,10,QR-009
+name,class,roll,qr_code
+Pradip Subedi,Ele,1,BEE-001
+Subash Sharma,Ele,2,BEE-002
+Garima Paudel,Com,3,BEE-003
+Atithi Aryal,Com,4,BEE-004
+Narayan Bd rana,Ele,5,BEE-005
+Bishal Godar,Com,6,BEE-006
+Anil Mahatto,Ele,7,BEE-007
+Dipak Shah,Ele,8,BEE-008
+Nisha Pokhrel,Com,11,BEE-011
+Aayushma Paudel,Com,9,BEE-009
+Anisha Silwal,Com,10,BEE-009
+Susmita Paudel,Civil,13,BEE-013
+Sneha Singh,Ele,14,BEE-014
