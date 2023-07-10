@@ -1,4 +1,11 @@
 <?php
+
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Your PHP code here
+
 // Retrieve the QR code data from the POST request
 $qrCode = $_POST['qrCode'];
 // Path to the CSV file
