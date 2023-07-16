@@ -28,16 +28,7 @@
       margin-top: 20px;
     }
   </style>
-  <script>
-    const serial = new WebSocket('ws://localhost:8080');
-    serial.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      document.getElementById('name').innerHTML = data.name;
-      document.getElementById('class').innerHTML = data.class;
-      document.getElementById('roll').innerHTML = data.roll;
-      document.getElementById('status').innerHTML = data.status;
-    };
-  </script>
+
 </head>
 <body>
   <div class="container">
