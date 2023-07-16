@@ -37,15 +37,15 @@ $result = $stmt->get_result();
 
 // Fetch the student information if the result is found
 if ($result->num_rows > 0) {
-    $studentInfo = $result->fetch_assoc();
+    $name = $result->fetch_assoc();
     $studentName = $studentInfo['name'];
-    $studentClass = $studentInfo['class'];
-    $rollNumber = $studentInfo['roll'];
+    $class = $studentInfo['class'];
+    $roll = $studentInfo['roll'];
     $status = 'Valid QR Code';
 } else {
-    $studentName = 'Unknown';
-    $studentClass = 'Unknown';
-    $rollNumber = '';
+    $name = 'Unknown';
+    $class = 'Unknown';
+    $roll = '';
     $status = 'Invalid QR Code';
 }
 
@@ -55,9 +55,9 @@ $mysqli->close();
 
 // Prepare the student information as an associative array
 $studentInfo = [
-    'name' => $studentName,
-    'class' => $studentClass,
-    'roll' => $rollNumber,
+    'name' => $name,
+    'class' => $class,
+    'roll' => $roll,
     'status' => $status
 ];
 
