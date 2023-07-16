@@ -2,6 +2,16 @@
 <html>
 <head>
   <title>Student Information</title>
+    <script>
+    const serial = new WebSocket('ws://localhost:8080');
+    serial.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      document.getElementById('name').innerHTML = data.name;
+      document.getElementById('class').innerHTML = data.class;
+      document.getElementById('roll').innerHTML = data.roll;
+      document.getElementById('status').innerHTML = data.status;
+    };
+  </script>
   <style>
     /*your custom CSS styles goes here */
     .container {
