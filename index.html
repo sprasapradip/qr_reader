@@ -3,6 +3,7 @@
 <head>
   <title>Student Information</title>
     <script>
+      
     const serial = new WebSocket('ws://localhost:8080');
     serial.onmessage = (event) => {
       const data = JSON.parse(event.data);
