@@ -74,5 +74,11 @@ void sendToHTML(String name, String roll) {
 }
 
 
+// Additional feature: Reset student data
+void resetData() {
+  studentName = "";
+  rollNumber = "";
+  Serial.println("Student data reset.");
+}
 
 
