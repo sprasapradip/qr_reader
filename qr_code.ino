@@ -30,3 +30,18 @@
 // }
 
 
+#include <SoftwareSerial.h>
+
+// RX, TX pins connected to the QR code reader module
+SoftwareSerial qrSerial(10, 11);  // Change the pins as per your setup
+
+String studentName = "";
+String rollNumber = "";
+
+void setup() {
+  Serial.begin(9600);
+  qrSerial.begin(9600);
+}
+
+
+
